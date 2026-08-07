@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "啟動後端 (子目錄)",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            // 1. 指向正確的檔案位置
+            "program": "${workspaceFolder}/AI-Patient-Triage-System/server.js",
+            // 2. 重要！設定工作目錄 (讓 .env 能被讀取到)
+            "cwd": "${workspaceFolder}/AI-Patient-Triage-System"
+        }
+    ]
+}
