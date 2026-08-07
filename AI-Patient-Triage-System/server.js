@@ -6,7 +6,7 @@ const cdsHooksRoutes = require('./routes/cds-hooks'); // <--- 引入新檔案
 require('dotenv').config();
 
 const app = express();
-//const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors()); // 允許前端 Vue 呼叫
