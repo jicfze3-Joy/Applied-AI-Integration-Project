@@ -47,7 +47,7 @@ jobs:
         run: |
           sleep 8
           echo "=== 檢查後端伺服器連線狀態 ==="
-          curl -I http://localhost:5000 || echo "❌ 後端尚未就緒，或 Port 不是 5000"
+          curl -I https://applied-ai-backend-h71g.onrender.com || echo "❌ 後端尚未就緒，或 Port 不是 5000"
           
           echo "=== 檢查前端網頁連線狀態 ==="
-          curl -I http://localhost:3000 || echo "❌ 前端尚未就緒，或 Port 不是 3000"
+          curl -I https://applied-ai-backend-h71g.onrender.com || echo "❌ 前端尚未就緒，或 Port 不是 3000"
