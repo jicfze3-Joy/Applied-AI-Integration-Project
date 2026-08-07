@@ -13,7 +13,7 @@ const loading = ref(false);
 const errorMsg = ref('');
 
 // --- 設定後端 API 位址 ---
-const API_URL = 'https://applied-ai-backend-h7ig.onrender.com/api/triage/analyze';
+const API_URL = 'https://applied-ai-backend-h71g.onrender.com/api/triage/analyze';
 
 // --- 發送分析請求 ---
 const submitTriage = async () => {
