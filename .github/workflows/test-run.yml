@@ -1,0 +1,56 @@
+name: 手動測試執行前後端程式
+
+on:
+  workflow_dispatch: # 🎯 允許你在 GitHub 網頁上手動點擊按鈕啟動
+
+jobs:
+  run-full-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 複製 GitHub 上的程式碼
+        uses: actions/checkout@v4
+
+      - name: 安裝 Node.js 環境
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ==========================================
+      # 1. ⚙️ 設定後端並在背景啟動
+      # ==========================================
+      - name: 安裝後端套件
+        working-directory: ./AI-Patient-Triage-System
+        run: npm install
+
+      - name: 🚀 啟動後端伺服器 (背景執行)
+        working-directory: ./AI-Patient-Triage-System
+        env:
+          # 🔑 這裡會去抓取你在 GitHub 網頁 Settings 設定的真實秘密資料
+          DB_HOST: ${{ secrets.DB_HOST }}
+          API_KEY: ${{ secrets.API_KEY }}
+        # 🎯 關鍵：在指令最後加上空格與 & 符號，代表把後端丟到背景執行，不會卡住後續步驟
+        run: node server.js &
+
+      # ==========================================
+      # 2. 🖥️ 設定前端並在背景啟動
+      # ==========================================
+      - name: 安裝前端套件
+        working-directory: ./Client
+        run: npm install
+
+      - name: 🚀 啟動前端網頁 (背景執行)
+        working-directory: ./Client
+        # 🎯 關鍵：同樣加上 & 讓前端在背景跑
+        run: npm start &
+
+      # ==========================================
+      # 3. 🧪 測試連線狀態（確保兩個都有順利活著）
+      # ==========================================
+      - name: 等待 8 秒並檢查前後端狀態
+        run: |
+          sleep 8
+          echo "=== 檢查後端伺服器連線狀態 ==="
+          curl -I http://localhost:5000 || echo "❌ 後端尚未就緒，或 Port 不是 5000"
+          
+          echo "=== 檢查前端網頁連線狀態 ==="
+          curl -I http://localhost:3000 || echo "❌ 前端尚未就緒，或 Port 不是 3000"
