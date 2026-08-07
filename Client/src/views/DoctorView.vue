@@ -67,7 +67,7 @@ const loading = ref(false);
 const error = ref(null);
 
 // 你的 CDS Hooks Server 網址 (請依據你的專案設定修改)
-const CDS_SERVER_URL = 'http://localhost:3000/cds-services';
+const CDS_SERVER_URL = 'https://applied-ai-backend-h7ig.onrender.com/cds-services';
 // 公開的 FHIR 測試伺服器
 const FHIR_SERVER_URL = 'https://hapi.fhir.org/baseR4';
 
